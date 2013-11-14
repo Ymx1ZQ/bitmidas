@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry exported="true" kind="lib" path="core-lib/xchange-core-1.10.0-20131110.191831-26.jar" sourcepath="core-lib/xchange-core-1.10.0-20131110.191831-26-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="core-lib/xchange-mtgox-1.10.0-20131110.192036-26.jar" sourcepath="core-lib/xchange-mtgox-1.10.0-20131110.192036-26-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jackson-annotations-2.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jackson-core-2.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jackson-databind-2.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/Java-WebSocket-1.3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/joda-money-0.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jsr305-2.0.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jsr311-api-1.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/rescu-1.4.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/xchart-2.2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/slf4j-simple-1.7.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/slf4j-api-1.7.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/mysql-connector-java-5.1.27-bin.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
