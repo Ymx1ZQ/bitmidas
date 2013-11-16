@@ -1,44 +1,55 @@
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
+import com.bitmidas.exchanger.Exchanger;
+import com.bitmidas.exchanger.XBitCurex;
+import com.bitmidas.exchanger.XBitStamp;
+import com.bitmidas.exchanger.XBtcE;
+import com.bitmidas.exchanger.XCampBx;
+import com.bitmidas.exchanger.XMtGox;
 import com.mysql.jdbc.Connection;
-import com.xeiam.xchange.Exchange;
-import com.xeiam.xchange.ExchangeFactory;
-import com.xeiam.xchange.currency.Currencies;
 import com.xeiam.xchange.dto.marketdata.Ticker;
-import com.xeiam.xchange.mtgox.v1.MtGoxExchange;
-import com.xeiam.xchange.service.polling.PollingMarketDataService;
 
 public class FetcherAPI {
 
-	private Exchange mtGoxExchange;
+	private XBitCurex bitCurex;
+	private XBitStamp bitStamp;
+	private XBtcE btcE;
+	private XCampBx xCampBx;
+	private XMtGox xMtGox;
+
+	private ArrayList<Exchanger> listExchanger;
 
 	public FetcherAPI() {
 
-		mtGoxExchange = ExchangeFactory.INSTANCE.createExchange(MtGoxExchange.class.getName());
+		bitCurex = new XBitCurex();
+		bitStamp = new XBitStamp();
+		btcE = new XBtcE();
+		xCampBx = new XCampBx();
+		xMtGox = new XMtGox();
+
+		listExchanger = new ArrayList<Exchanger>();
+		listExchanger.add(bitCurex);
+		listExchanger.add(bitStamp);
+		listExchanger.add(btcE);
+		listExchanger.add(xCampBx);
+		listExchanger.add(xMtGox);
+
 	}
 
-	public Ticker getLastTicker() {
+	public void storeTickersInDB() {
 
-		try {
-			PollingMarketDataService marketDataService = mtGoxExchange.getPollingMarketDataService();
-
-			Ticker ticker = marketDataService.getTicker(Currencies.BTC, Currencies.USD);
-			return ticker;
-
-		} catch (Exception e) {
-			e.printStackTrace();
+		for (Exchanger exch : listExchanger) {
+			Ticker ticker = exch.getLastTicker();
+			saveTicker(ticker, exch.getExchangerName());
 		}
 
-		return null;
-
 	}
 
-	public void saveTicker(Ticker ticker) {
+	private void saveTicker(Ticker ticker, String exchangerName) {
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -47,7 +58,7 @@ public class FetcherAPI {
 		try {
 			con = DBManager.getInstance().getConnection();
 
-			ps = con.prepareStatement("INSERT INTO mtgox (last,bid,ask,high,low,volume,time) VALUES (?,?,?,?,?,?,?)");
+			ps = con.prepareStatement("INSERT INTO " + exchangerName + " (last,bid,ask,high,low,volume,time) VALUES (?,?,?,?,?,?,?)");
 			ps.setDouble(1, ticker.getLast().getAmount().doubleValue());
 			ps.setDouble(2, ticker.getBid().getAmount().doubleValue());
 			ps.setDouble(3, ticker.getAsk().getAmount().doubleValue());
@@ -61,31 +72,7 @@ public class FetcherAPI {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(con, ps, rs);
-		}
-
-	}
-
-	private void close(Connection con, Statement stat, ResultSet resultSet) {
-
-		if (resultSet != null) {
-			try {
-				resultSet.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		if (stat != null) {
-			try {
-				stat.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		if (con != null) {
-			DBManager.getInstance().releaseConnection(con);
+			DBManager.closeQuery(con, ps, rs);
 		}
 
 	}

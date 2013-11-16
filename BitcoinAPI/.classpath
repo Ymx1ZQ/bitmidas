@@ -16,5 +16,10 @@
 	<classpathentry exported="true" kind="lib" path="lib/slf4j-simple-1.7.5.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/slf4j-api-1.7.5.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/mysql-connector-java-5.1.27-bin.jar"/>
+	<classpathentry exported="true" kind="lib" path="core-lib/xchange-bitstamp-1.10.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="core-lib/xchange-btce-1.10.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="core-lib/xchange-campbx-1.10.0.jar"/>
+	<classpathentry kind="lib" path="core-lib/xchange-btcchina-1.10.0.jar"/>
+	<classpathentry kind="lib" path="core-lib/xchange-kraken-1.10.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

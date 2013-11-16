@@ -1,5 +1,7 @@
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 
 import com.mysql.jdbc.Connection;
@@ -21,7 +23,7 @@ public class DBManager {
 	private DBManager() throws ClassNotFoundException {
 		this.usernamesql = "root";
 		this.passwsql = "12sadimtib21";
-//		this.urlserversql = "192.241.246.240";
+		// this.urlserversql = "192.241.246.240";
 		this.urlserversql = "127.0.0.1";
 		this.dbnamesql = "BitMidas";
 		this.portserversql = "3306";
@@ -114,6 +116,30 @@ public class DBManager {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public static void closeQuery(Connection con, Statement stat, ResultSet resultSet) {
+
+		if (resultSet != null) {
+			try {
+				resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		if (stat != null) {
+			try {
+				stat.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		if (con != null) {
+			DBManager.getInstance().releaseConnection(con);
+		}
+
 	}
 
 }
