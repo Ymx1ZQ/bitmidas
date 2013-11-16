@@ -6,12 +6,9 @@
 	<classpathentry exported="true" kind="lib" path="lib/jackson-core-2.1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jackson-databind-2.1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/Java-WebSocket-1.3.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/joda-money-0.8.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jsr305-2.0.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jsr311-api-1.1.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/rescu-1.4.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/xchart-2.2.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/slf4j-simple-1.7.5.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/slf4j-api-1.7.5.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/mysql-connector-java-5.1.27-bin.jar"/>
 	<classpathentry kind="lib" path="core-lib/xchange-bitcoinaverage-1.11.0-20131116.031322-1.jar"/>
@@ -24,5 +21,13 @@
 	<classpathentry kind="lib" path="core-lib/xchange-core-1.11.0-20131116.031044-4.jar" sourcepath="core-lib/xchange-core-1.11.0-20131116.031044-4-sources.jar"/>
 	<classpathentry kind="lib" path="core-lib/xchange-kraken-1.11.0-20131116.031256-4.jar"/>
 	<classpathentry kind="lib" path="core-lib/xchange-mtgox-1.11.0-20131116.031232-4.jar" sourcepath="core-lib/xchange-mtgox-1.11.0-20131116.031232-4-sources.jar"/>
+	<classpathentry kind="lib" path="lib/fest-assert-core-2.0M10.jar"/>
+	<classpathentry kind="lib" path="lib/fest-util-1.2.5.jar"/>
+	<classpathentry kind="lib" path="lib/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/joda-money-0.9.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.11.jar"/>
+	<classpathentry kind="lib" path="lib/logback-classic-1.0.13.jar"/>
+	<classpathentry kind="lib" path="lib/logback-core-1.0.13.jar"/>
+	<classpathentry kind="lib" path="lib/rescu-1.5.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
