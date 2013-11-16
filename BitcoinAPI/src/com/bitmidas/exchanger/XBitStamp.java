@@ -12,5 +12,10 @@ public class XBitStamp extends Exchanger {
 	public void init() {
 	}
 
+	@Override
+	public boolean isTradingSupported() {
+		return true;
+	}
+
 
 }

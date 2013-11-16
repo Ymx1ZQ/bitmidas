@@ -20,4 +20,9 @@ public class XMtGox extends Exchanger {
 		getExchangeXChange().applySpecification(specification);
 	}
 
+	@Override
+	public boolean isTradingSupported() {
+		return true;
+	}
+
 }

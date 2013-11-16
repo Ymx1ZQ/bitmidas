@@ -12,4 +12,9 @@ public class XCampBx extends Exchanger {
 	public void init() {
 	}
 
+	@Override
+	public boolean isTradingSupported() {
+		return true;
+	}
+
 }

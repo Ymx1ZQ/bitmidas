@@ -2,8 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry exported="true" kind="lib" path="core-lib/xchange-core-1.10.0-20131110.191831-26.jar" sourcepath="core-lib/xchange-core-1.10.0-20131110.191831-26-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="core-lib/xchange-mtgox-1.10.0-20131110.192036-26.jar" sourcepath="core-lib/xchange-mtgox-1.10.0-20131110.192036-26-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jackson-annotations-2.1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jackson-core-2.1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jackson-databind-2.1.1.jar"/>
@@ -16,10 +14,15 @@
 	<classpathentry exported="true" kind="lib" path="lib/slf4j-simple-1.7.5.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/slf4j-api-1.7.5.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/mysql-connector-java-5.1.27-bin.jar"/>
-	<classpathentry exported="true" kind="lib" path="core-lib/xchange-bitstamp-1.10.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="core-lib/xchange-btce-1.10.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="core-lib/xchange-campbx-1.10.0.jar"/>
-	<classpathentry kind="lib" path="core-lib/xchange-btcchina-1.10.0.jar"/>
-	<classpathentry kind="lib" path="core-lib/xchange-kraken-1.10.0.jar"/>
+	<classpathentry kind="lib" path="core-lib/xchange-bitcoinaverage-1.11.0-20131116.031322-1.jar"/>
+	<classpathentry kind="lib" path="core-lib/xchange-bitcurex-1.11.0-20131116.031105-4.jar"/>
+	<classpathentry kind="lib" path="core-lib/xchange-bitstamp-1.11.0-20131116.031117-4.jar"/>
+	<classpathentry kind="lib" path="core-lib/xchange-btcchina-1.11.0-20131116.031140-4.jar"/>
+	<classpathentry kind="lib" path="core-lib/xchange-btce-1.11.0-20131116.031153-4.jar"/>
+	<classpathentry kind="lib" path="core-lib/xchange-campbx-1.11.0-20131116.031205-4.jar"/>
+	<classpathentry kind="lib" path="core-lib/xchange-cavirtex-1.11.0-20131116.031216-4.jar"/>
+	<classpathentry kind="lib" path="core-lib/xchange-core-1.11.0-20131116.031044-4.jar" sourcepath="core-lib/xchange-core-1.11.0-20131116.031044-4-sources.jar"/>
+	<classpathentry kind="lib" path="core-lib/xchange-kraken-1.11.0-20131116.031256-4.jar"/>
+	<classpathentry kind="lib" path="core-lib/xchange-mtgox-1.11.0-20131116.031232-4.jar" sourcepath="core-lib/xchange-mtgox-1.11.0-20131116.031232-4-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -12,4 +12,9 @@ public class XBtcE extends Exchanger {
 	public void init() {
 	}
 
+	@Override
+	public boolean isTradingSupported() {
+		return true;
+	}
+
 }

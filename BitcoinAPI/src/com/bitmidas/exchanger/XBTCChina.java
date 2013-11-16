@@ -12,4 +12,9 @@ public class XBTCChina extends Exchanger{
 	protected void init() {
 	}
 
+	@Override
+	public boolean isTradingSupported() {
+		return true;
+	}
+
 }

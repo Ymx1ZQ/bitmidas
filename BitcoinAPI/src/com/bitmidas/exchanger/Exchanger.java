@@ -41,6 +41,8 @@ public abstract class Exchanger {
 		return mLastTicker;
 
 	}
+	
+	public abstract boolean isTradingSupported();
 
 	public com.xeiam.xchange.Exchange getExchangeXChange() {
 		return exchangeXChange;
