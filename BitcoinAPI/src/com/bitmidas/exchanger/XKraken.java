@@ -4,7 +4,9 @@ import com.xeiam.xchange.kraken.KrakenExchange;
 
 public class XKraken extends Exchanger {
 
-	public XKraken() {
+	private static XKraken instance;
+
+	private XKraken() {
 		super(KrakenExchange.class.getName());
 	}
 
@@ -15,6 +17,14 @@ public class XKraken extends Exchanger {
 	@Override
 	public boolean isTradingSupported() {
 		return true;
+	}
+
+	public synchronized static XKraken getInstance() {
+		if (instance == null) {
+			instance = new XKraken();
+		}
+
+		return (XKraken) instance;
 	}
 
 }

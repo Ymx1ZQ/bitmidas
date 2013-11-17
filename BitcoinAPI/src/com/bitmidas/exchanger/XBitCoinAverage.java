@@ -2,9 +2,11 @@ package com.bitmidas.exchanger;
 
 import com.xeiam.xchange.bitcoinaverage.BitcoinAverageExchange;
 
-public class XBitCoinAverage extends Exchanger{
+public class XBitCoinAverage extends Exchanger {
 
-	public XBitCoinAverage() {
+	private static XBitCoinAverage instance;
+	
+	private XBitCoinAverage() {
 		super(BitcoinAverageExchange.class.getName());
 	}
 
@@ -15,6 +17,14 @@ public class XBitCoinAverage extends Exchanger{
 	@Override
 	public boolean isTradingSupported() {
 		return false;
+	}
+
+	public synchronized static XBitCoinAverage getInstance() {
+		if (instance == null) {
+			instance = new XBitCoinAverage();
+		}
+
+		return (XBitCoinAverage) instance;
 	}
 
 }

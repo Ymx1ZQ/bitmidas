@@ -4,7 +4,9 @@ import com.xeiam.xchange.campbx.CampBXExchange;
 
 public class XCampBx extends Exchanger {
 
-	public XCampBx() {
+	private static XCampBx instance;
+
+	private XCampBx() {
 		super(CampBXExchange.class.getName());
 	}
 
@@ -15,6 +17,14 @@ public class XCampBx extends Exchanger {
 	@Override
 	public boolean isTradingSupported() {
 		return true;
+	}
+
+	public synchronized static XCampBx getInstance() {
+		if (instance == null) {
+			instance = new XCampBx();
+		}
+
+		return (XCampBx) instance;
 	}
 
 }

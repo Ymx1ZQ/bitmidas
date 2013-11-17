@@ -4,7 +4,9 @@ import com.xeiam.xchange.btce.BTCEExchange;
 
 public class XBtcE extends Exchanger {
 
-	public XBtcE() {
+	private static XBtcE instance;
+
+	private XBtcE() {
 		super(BTCEExchange.class.getName());
 	}
 
@@ -15,6 +17,14 @@ public class XBtcE extends Exchanger {
 	@Override
 	public boolean isTradingSupported() {
 		return true;
+	}
+
+	public synchronized static XBtcE getInstance() {
+		if (instance == null) {
+			instance = new XBtcE();
+		}
+
+		return (XBtcE) instance;
 	}
 
 }

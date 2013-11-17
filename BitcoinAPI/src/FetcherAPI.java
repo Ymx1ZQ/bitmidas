@@ -8,51 +8,17 @@ import java.util.Date;
 import org.joda.money.BigMoney;
 
 import com.bitmidas.exchanger.Exchanger;
-import com.bitmidas.exchanger.XBitCoinAverage;
-import com.bitmidas.exchanger.XBitStamp;
-import com.bitmidas.exchanger.XBtcE;
-import com.bitmidas.exchanger.XCampBx;
-import com.bitmidas.exchanger.XKraken;
-import com.bitmidas.exchanger.XMtGox;
+import com.bitmidas.exchanger.ExchangerHelper;
 import com.mysql.jdbc.Connection;
 import com.xeiam.xchange.dto.marketdata.Ticker;
 
 public class FetcherAPI {
 
-	// private XBitCurex bitCurex;
-	private XBitStamp bitStamp;
-	private XBtcE btcE;
-	private XCampBx campBx;
-	private XMtGox mtGox;
-	// private XVirtex virtex;
-	private XKraken kraken;
-	// private XBTCChina btcChina;
-	private XBitCoinAverage bitCoinAverage;
-
 	private ArrayList<Exchanger> listExchanger;
 
 	public FetcherAPI() {
 
-		bitCoinAverage = new XBitCoinAverage();
-		// bitCurex = new XBitCurex();
-		bitStamp = new XBitStamp();
-		// btcChina = new XBTCChina();
-		btcE = new XBtcE();
-		campBx = new XCampBx();
-		kraken = new XKraken();
-		mtGox = new XMtGox();
-		// virtex = new XVirtex();
-
-		listExchanger = new ArrayList<Exchanger>();
-		listExchanger.add(bitCoinAverage);
-		// listExchanger.add(bitCurex); // TODO NO BTC USD
-		listExchanger.add(bitStamp);
-		// listExchanger.add(btcChina); // TODO NO BTC USD
-		listExchanger.add(btcE);
-		listExchanger.add(campBx);
-		listExchanger.add(kraken);
-		listExchanger.add(mtGox);
-		// listExchanger.add(virtex); // TODO NO BTC USD
+		this.listExchanger = ExchangerHelper.getListExchanger();
 
 	}
 

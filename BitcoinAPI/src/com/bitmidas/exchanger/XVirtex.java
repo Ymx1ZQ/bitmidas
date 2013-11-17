@@ -4,7 +4,9 @@ import com.xeiam.xchange.virtex.VirtExExchange;
 
 public class XVirtex extends Exchanger {
 
-	public XVirtex() {
+	private static XVirtex instance;
+
+	private XVirtex() {
 		super(VirtExExchange.class.getName());
 	}
 
@@ -15,6 +17,14 @@ public class XVirtex extends Exchanger {
 	@Override
 	public boolean isTradingSupported() {
 		return false;
+	}
+
+	public synchronized static XVirtex getInstance() {
+		if (instance == null) {
+			instance = new XVirtex();
+		}
+
+		return (XVirtex) instance;
 	}
 
 }

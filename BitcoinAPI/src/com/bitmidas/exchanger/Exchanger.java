@@ -2,8 +2,6 @@ package com.bitmidas.exchanger;
 
 import com.xeiam.xchange.ExchangeFactory;
 import com.xeiam.xchange.currency.Currencies;
-import com.xeiam.xchange.currency.CurrencyPair;
-import com.xeiam.xchange.dto.ExchangeInfo;
 import com.xeiam.xchange.dto.marketdata.Ticker;
 import com.xeiam.xchange.service.polling.PollingMarketDataService;
 
@@ -16,19 +14,20 @@ public abstract class Exchanger {
 	private String identifier = Currencies.BTC;
 	private String currency = Currencies.USD;
 
-	private long mLastUpdateTicker = 0;
+	private long mLastUpdateTicker;
 	private Ticker mLastTicker;
 
-	public Exchanger(String exchangeClass) {
+	protected Exchanger(String exchangeClass) {
 		this.exchangeXChange = ExchangeFactory.INSTANCE.createExchange(exchangeClass);
 		init();
+		this.mLastUpdateTicker = System.currentTimeMillis();
 	}
 
 	protected abstract void init();
 
-	public Ticker getLastTicker() {
+	public synchronized Ticker getLastTicker() {
 
-		if (mLastTicker == null || (System.currentTimeMillis() - mLastUpdateTicker) < EXPIRETIME_TICKER) { // keep the ticker for a while
+		if (mLastTicker == null || (System.currentTimeMillis() - mLastUpdateTicker) > EXPIRETIME_TICKER) { // keep the ticker for a while
 			try {
 				PollingMarketDataService pollingMarketDataService = exchangeXChange.getPollingMarketDataService();
 

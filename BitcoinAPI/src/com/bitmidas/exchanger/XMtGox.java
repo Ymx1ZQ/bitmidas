@@ -6,7 +6,9 @@ import com.xeiam.xchange.mtgox.v2.MtGoxExchange;
 
 public class XMtGox extends Exchanger {
 
-	public XMtGox() {
+	private static XMtGox instance;
+
+	private XMtGox() {
 		super(MtGoxExchange.class.getName());
 	}
 
@@ -23,6 +25,14 @@ public class XMtGox extends Exchanger {
 	@Override
 	public boolean isTradingSupported() {
 		return true;
+	}
+
+	public synchronized static XMtGox getInstance() {
+		if (instance == null) {
+			instance = new XMtGox();
+		}
+
+		return (XMtGox) instance;
 	}
 
 }

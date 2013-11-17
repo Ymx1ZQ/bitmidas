@@ -4,7 +4,9 @@ import com.xeiam.xchange.bitstamp.BitstampExchange;
 
 public class XBitStamp extends Exchanger {
 
-	public XBitStamp() {
+	private static XBitStamp instance;
+
+	private XBitStamp() {
 		super(BitstampExchange.class.getName());
 	}
 
@@ -17,5 +19,12 @@ public class XBitStamp extends Exchanger {
 		return true;
 	}
 
+	public synchronized static XBitStamp getInstance() {
+		if (instance == null) {
+			instance = new XBitStamp();
+		}
+
+		return (XBitStamp) instance;
+	}
 
 }
