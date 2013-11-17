@@ -30,5 +30,6 @@
 	<classpathentry kind="lib" path="lib/rescu-1.5.0.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.7.5.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-nop-1.7.5.jar"/>
+	<classpathentry kind="lib" path="lib/commons-math3-3.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

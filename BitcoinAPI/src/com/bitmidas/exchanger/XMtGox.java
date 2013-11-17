@@ -12,14 +12,13 @@ public class XMtGox extends Exchanger {
 		super(MtGoxExchange.class.getName());
 	}
 
-	public void init() {
-		Exchange exchange = getExchangeXChange();
+	public void init(Exchange exhange, ExchangeSpecification specification) {
 
-		ExchangeSpecification specification = exchange.getDefaultExchangeSpecification();
+		specification.setApiKey("6026e0f1-a505-456b-9b0e-69f3d5c41ba3");
+		specification.setSecretKey("DQxyKbE/AX16d/CSkIq2Kd6irpDV5arUIz6NJ7jGikPrAV+U38lSlnFQOktRzyXGY2GBd7zz8WxhvJis4usyhQ==");
+		specification.setTradeFeePercent(0.6);
 
-		specification.setApiKey("APIKEY");
-
-		getExchangeXChange().applySpecification(specification);
+		exhange.applySpecification(specification);
 	}
 
 	@Override
@@ -31,7 +30,6 @@ public class XMtGox extends Exchanger {
 		if (instance == null) {
 			instance = new XMtGox();
 		}
-
 		return (XMtGox) instance;
 	}
 

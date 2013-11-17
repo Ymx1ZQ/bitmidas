@@ -1,5 +1,7 @@
 package com.bitmidas.exchanger;
 
+import com.xeiam.xchange.Exchange;
+import com.xeiam.xchange.ExchangeSpecification;
 import com.xeiam.xchange.btcchina.BTCChinaExchange;
 
 public class XBTCChina extends Exchanger {
@@ -11,7 +13,7 @@ public class XBTCChina extends Exchanger {
 	}
 
 	@Override
-	protected void init() {
+	protected void init(Exchange exhange, ExchangeSpecification specification) {
 	}
 
 	@Override

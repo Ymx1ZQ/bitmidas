@@ -1,5 +1,7 @@
 package com.bitmidas.exchanger;
 
+import com.xeiam.xchange.Exchange;
+import com.xeiam.xchange.ExchangeSpecification;
 import com.xeiam.xchange.bitstamp.BitstampExchange;
 
 public class XBitStamp extends Exchanger {
@@ -11,7 +13,11 @@ public class XBitStamp extends Exchanger {
 	}
 
 	@Override
-	public void init() {
+	public void init(Exchange exhange, ExchangeSpecification specification) {
+
+		specification.setTradeFeePercent(0.5);
+
+		exhange.applySpecification(specification);
 	}
 
 	@Override

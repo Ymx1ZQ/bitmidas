@@ -1,5 +1,7 @@
 package com.bitmidas.exchanger;
 
+import com.xeiam.xchange.Exchange;
+import com.xeiam.xchange.ExchangeSpecification;
 import com.xeiam.xchange.kraken.KrakenExchange;
 
 public class XKraken extends Exchanger {
@@ -11,7 +13,7 @@ public class XKraken extends Exchanger {
 	}
 
 	@Override
-	protected void init() {
+	protected void init(Exchange exhange, ExchangeSpecification specification) {
 	}
 
 	@Override

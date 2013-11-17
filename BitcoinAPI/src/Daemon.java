@@ -16,9 +16,9 @@ public class Daemon {
 				public void run() {
 
 					try {
-						fetcher.storeTickersInDB();
-						// arbitrage.watch();
-						// System.out.println();
+//						fetcher.storeTickersInDB();
+						 arbitrage.watch();
+						 System.out.println();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

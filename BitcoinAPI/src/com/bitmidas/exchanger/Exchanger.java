@@ -1,6 +1,7 @@
 package com.bitmidas.exchanger;
 
 import com.xeiam.xchange.ExchangeFactory;
+import com.xeiam.xchange.ExchangeSpecification;
 import com.xeiam.xchange.currency.Currencies;
 import com.xeiam.xchange.dto.marketdata.Ticker;
 import com.xeiam.xchange.service.polling.PollingMarketDataService;
@@ -19,11 +20,11 @@ public abstract class Exchanger {
 
 	protected Exchanger(String exchangeClass) {
 		this.exchangeXChange = ExchangeFactory.INSTANCE.createExchange(exchangeClass);
-		init();
+		init(exchangeXChange, exchangeXChange.getExchangeSpecification());
 		this.mLastUpdateTicker = System.currentTimeMillis();
 	}
 
-	protected abstract void init();
+	protected abstract void init(com.xeiam.xchange.Exchange exchange, ExchangeSpecification specification);
 
 	public synchronized Ticker getLastTicker() {
 

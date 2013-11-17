@@ -1,5 +1,7 @@
 package com.bitmidas.exchanger;
 
+import com.xeiam.xchange.Exchange;
+import com.xeiam.xchange.ExchangeSpecification;
 import com.xeiam.xchange.campbx.CampBXExchange;
 
 public class XCampBx extends Exchanger {
@@ -11,7 +13,11 @@ public class XCampBx extends Exchanger {
 	}
 
 	@Override
-	public void init() {
+	public void init(Exchange exchange, ExchangeSpecification specification) {
+		
+		specification.setTradeFeePercent(0.55);
+		
+		exchange.applySpecification(specification);
 	}
 
 	@Override
