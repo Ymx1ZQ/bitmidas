@@ -6,7 +6,7 @@ public class Daemon {
 
 		long TIME_SLEEP = 60 * 1000;
 		final FetcherAPI fetcher = new FetcherAPI();
-		final Arbitrage arbitrage = new Arbitrage();
+		// final Arbitrage arbitrage = new Arbitrage();
 
 		while (true) {
 
@@ -16,9 +16,9 @@ public class Daemon {
 				public void run() {
 
 					try {
-//						fetcher.storeTickersInDB();
-						 arbitrage.watch();
-						 System.out.println();
+						fetcher.storeTickersInDB();
+						// arbitrage.watch();
+						System.out.println();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

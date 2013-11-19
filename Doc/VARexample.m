@@ -42,3 +42,11 @@ for iii = L+1:T,
 end;
 
 A_hat = Y*X'*(X*X')^-1;
+
+
+
+%se hai una matrice A
+%A(1,1) e' il primo elemento
+%A(1:3, 1:3) e' un sottoblocco 3x3 con gli elementi in alto a sinistra
+%A(:, 1) e' tutta la prima colonna
+%A(:, 3:5) sono le colonne 3,4 e 5
