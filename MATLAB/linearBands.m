@@ -1,4 +1,4 @@
-function [bandsBid, bandsAsk] = montecarlo(A_hat, relevantData, errors, T0, H, simulations, percentiles, const)
+function [bandsBid, bandsAsk] = linearBands(A_hat, relevantData, errors, T0, H, simulations, percentiles, const)
 
 T = size(relevantData,1);
 K = size(relevantData,2);
