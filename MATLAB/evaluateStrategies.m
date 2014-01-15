@@ -57,6 +57,8 @@ for jjj = 1:nStrategies,
                 choices(iii, jjj) = choose002_maBase(portfolio(1:iii-1,:,jjj), data(1:iii-1,:,:), fees, forecast(1:iii-1,:,:), stdev(1:iii-1,:,:));
             case 3,
                 choices(iii, jjj) = choose003_maPaolo(portfolio(1:iii-1,:,jjj), data(1:iii-1,:,:), fees, forecast(1:iii-1,:,:), stdev(1:iii-1,:,:));
+            case 4,
+                choices(iii, jjj) = choose004_basicRule(portfolio(1:iii-1,:,jjj), data(1:iii-1,:,:), fees, forecast(1:iii-1,:,:), stdev(1:iii-1,:,:));
             otherwise % buy at time0 and then wait until the end
                 if iii == startPlaying+1, 
                     choices(iii, jjj) = 1;
