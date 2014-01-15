@@ -18,4 +18,4 @@ for iii = 1:T-L,
 end;
 A_hat = (X'*X)^-1*X'*Y;
 errors = Y - X*A_hat;
-COV_hat = errors'*errors;
+COV_hat = errors'*errors/(T-K-const);

@@ -1,13 +1,14 @@
-% TEST
+% clean Data
 clc;
 clear;
+display('We''re cleaning your data for you');
 
 % settings
 binWidth = 60; % seconds
 
 % loading data
 rawData = csvread('raw_data.csv',1);
-rawData(:,3) = rawData(:,3)*10^-2;
+rawData(:,3) = rawData(:,3)*10^-2; %BTC-USD *10^-2; LTC-EUR *2*10^-4;
 
 % preparing bins
 T = size(rawData,1);
@@ -30,7 +31,7 @@ for iii = 1:length,
     jjj = jjj-1;
 end;
 
-% filling missing data
+% filling missing data for long gaps
 iii = 1;
 while iii < size(data,1), 
     if isnan(data(iii,1)),
@@ -40,22 +41,24 @@ while iii < size(data,1),
             gapLenght = gapLenght + 1;
             jjj = jjj+1;
         end;
-        if gapLenght > 30,
-            data(iii+30:iii+gapLenght,:) = [];
+        if gapLenght > 120,
+            data(iii+120:iii+gapLenght,:) = [];
         end;
     end;
     iii = iii+1;
 end;
 
-
+% filling missing data for all gaps
 for iii = 1:size(data,1),
     if isnan(data(iii,1)),    
-        data(iii,:) = nanmean(data(max(1,iii-30):min(iii+30,end),:),1);    
+        data(iii,:) = nanmean(data(max(1,iii-120):min(iii+120,end),:),1);    
     end;
 end;
 
+% duplicating data (as a mirrorw)
+% data = [data(end:-1:1,:); data];
 
-plot(data);
 
 % saving data
+plot(data);
 csvwrite('data.csv',data);

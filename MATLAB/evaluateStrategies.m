@@ -10,7 +10,7 @@ load('computations.mat');
 % settings
 nStrategies = 4;
 startPlaying = start2+H; % all strategies start from start2+1+H
-%startPlaying = 3500;
+%startPlaying = 201;
 
 portfolio = NaN(T,2, nStrategies);
 choices = NaN(T+H, nStrategies);
@@ -24,21 +24,39 @@ end;
 
 % making choices and making actions
 for jjj = 1:nStrategies,
-    historicalAsk = data(start2+1, 2);
-    if jjj == 1,
+    historicalAsk = data(start2+1, 2); 
+    if jjj == 1, % extra data needed for choice003_Luca
         lastAskPriceUsed = 0;
+        timeWait = 100; % wait time after the stoploss started
     end;
     for iii = startPlaying+1:T,
-        % chose what to do in iii, given the information set at iii 
-        % % -1: sell, 0: wait, 1 buy
-        
+        % chose what to do in iii, given the information set at iii-1
+        % -1: sell, 0: wait, 1 buy
         switch jjj
             case 1,
-                [choices(iii, jjj), lastAskPriceUsed] = choose001_luca(portfolio(1:iii-1,:,jjj), data(1:iii-1,:,:), fees, forecast(1:iii-1,:,:), stdev(1:iii-1,:,:), lastAskPriceUsed);
+                if choices(iii-1, jjj) ~= -2,
+                    [choices(iii, jjj), lastAskPriceUsed] = choose001_luca(portfolio(1:iii-1,:,jjj), data(1:iii-1,:,:), fees, forecast(1:iii-1,:,:), stdev(1:iii-1,:,:), lastAskPriceUsed);
+                else
+                    %{
+                    action = input('Do you want to start again? Y/N [N]', 's');
+                    if isempty(action), action = 'N'; end;
+                    if action == 'Y' || action == 'y', 
+                        choices(iii, jjj) = 0;
+                    else
+                        choices(iii, jjj) = -2;
+                    end;
+                    %}
+                    waitFor = waitFor -1;
+                    if waitFor < 0,
+                        choices(iii, jjj) = 0;
+                    else
+                        choices(iii, jjj) = -2;
+                    end;
+                end;
             case 2,
                 choices(iii, jjj) = choose002_maBase(portfolio(1:iii-1,:,jjj), data(1:iii-1,:,:), fees, forecast(1:iii-1,:,:), stdev(1:iii-1,:,:));
             case 3,
-                 choices(iii, jjj) = choose003_maPaolo(portfolio(1:iii-1,:,jjj), data(1:iii-1,:,:), fees, forecast(1:iii-1,:,:), stdev(1:iii-1,:,:));
+                choices(iii, jjj) = choose003_maPaolo(portfolio(1:iii-1,:,jjj), data(1:iii-1,:,:), fees, forecast(1:iii-1,:,:), stdev(1:iii-1,:,:));
             otherwise % buy at time0 and then wait until the end
                 if iii == startPlaying+1, 
                     choices(iii, jjj) = 1;
@@ -58,8 +76,15 @@ for jjj = 1:nStrategies,
                 portfolio(iii, 1, jjj) = 0;
                 historicalAsk = data(iii, 2);
             case -2, % stop loss
-                portfolio(iii, 2, jjj) = NaN;
-                portfolio(iii, 1, jjj) = NaN;
+                if portfolio(iii-1, 2, jjj) > 0,
+                    %disp(['stoploss at time ', num2str(iii), ' ... SELL!']);
+                    portfolio(iii, 1, jjj) = portfolio(iii-1, 2, jjj) * data(iii, 1) * (1-fees(2));
+                    portfolio(iii, 2, jjj) = 0;
+                    waitFor = timeWait;
+                else
+                    %disp(['stoploss time... waiting for human action!']);
+                    portfolio(iii, :, jjj) = portfolio(iii-1, :, jjj);
+                end;
                 historicalAsk = data(iii, 2);
             otherwise
                 portfolio(iii, :, jjj) = portfolio(iii-1, :, jjj);
@@ -97,7 +122,7 @@ for jjj = 1:nStrategies,
             case 1, % buy
                 actions(iii,2) = data(iii, 2);
             case -2, % stop loss
-                actions(iii,3) = mean(data(iii, 1:2));
+                actions(iii,3) = data(iii, 2);
             otherwise
                 actions(iii,:) = NaN(1,3);
         end;        
@@ -124,6 +149,8 @@ for jjj = 1:nStrategies,
     % actions    
     scatter(1:(endPicture-startPicture+1), actions(startPicture:endPicture,1), 'b', 'fill');
     hold on;
-    scatter(1:(endPicture-startPicture+1), actions(startPicture:endPicture,2), 'r', 'fill');    
-    
+    scatter(1:(endPicture-startPicture+1), actions(startPicture:endPicture,2), 'r', 'fill');
+    hold on;
+    scatter(1:(endPicture-startPicture+1), actions(startPicture:endPicture,3), 'g', 'fill');
+    hold on;
 end;

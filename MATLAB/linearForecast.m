@@ -1,4 +1,4 @@
-function [pricesBid, pricesAsk] = linearForecast(A_hat, relevantData, H, const)
+function [forecast] = linearForecast(A_hat, relevantData, H, const)
 
 T = size(relevantData,1);
 K = size(relevantData,2);
@@ -16,5 +16,4 @@ for iii = T+1:T+H,
     end;
     data(iii,:) = dataX*A_hat;
 end;
-pricesBid = data(T+1:end,1);
-pricesAsk = data(T+1:end,2);
+forecast = data(T+1:end,:);

@@ -28,4 +28,14 @@ function [choice, newLastAskPriceUsed] = choose001_luca(portfolio, data, fees, f
         if (data(T,2) > forecast(T-H,2,H) + stdev(T-H,2,H)/sensitiveness) && ((1-fees(2))*data(T,1)>lastAskPriceUsed),
             choice = -1;            
         end;
+        
+        % stop loss rule
+        volumeIncr = (data(2:end,3)-data(1:end-1,3))./data(1:end-1,3);    
+        processStDev = var(volumeIncr).^0.5;
+        sensibility = 4;
+
+        if abs(volumeIncr(end-1)) > volumeIncr(end-2) + sensibility * processStDev;
+            choice = -2;
+        end;
+        
     end;

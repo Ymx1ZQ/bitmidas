@@ -1,0 +1,40 @@
+function [choice] = choose003_maPaolo(portfolio, data, fees, forecast, stdev)
+    % -1: sell; 0: wait; 1: buy; -2: stop loss
+    choice = 0;
+    
+    %H = size(forecast,3);
+    H = 2;
+    T = size(data,1);
+    MAlags = [20, 50];
+    
+    % put some future in the choices
+    data = [data(:,:); NaN(H,3)];
+    for iii = 1:H,
+        data(T+iii,:) = forecast(T,:,iii);
+    end;
+    MAs = movingAverages(data, T+H, MAlags);
+
+    if portfolio(T,1) > portfolio(T,2), 
+        % I buy if price is increasing
+        if MAs(1) > MAs(2) ,
+            choice = 1;
+        end;
+    else
+        % I sell if price is decreasing
+        if MAs(1) < MAs(2) ,
+            choice = -1;
+        end;
+    end;
+    
+    % change your mind if falling!!
+    if mean(forecast(T,:,1:2)) < mean(data(T,1:2))-mean(stdev(T,:,1)),
+        choice = min(-1, choice-1);
+    end; 
+    
+    % change your mind if growing!!
+    if mean(forecast(T,:,1:2)) > mean(data(T,1:2))+mean(stdev(T,:,1:2)),
+        choice = max(1, choice+1);
+    end;
+    
+    
+    if choice == 2, disp('pirla'); end;
