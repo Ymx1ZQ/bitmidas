@@ -2,16 +2,16 @@ function [choice] = choose003_maPaolo(portfolio, data, fees, forecast, stdev)
     % -1: sell; 0: wait; 1: buy; -2: stop loss
     choice = 0;
     
-    H = size(forecast,3);
+    %H = size(forecast,3);
+    H = 3;
     T = size(data,1);
-    MAlags = [20, 50];
 
-    data = [data(:,1:2); NaN(H,2)];
-    
+    data = [data(:,1:2); NaN(H,2)];    
     for iii = 1:H,
-        data(T+iii,:) = forecast(T,:,H);
+        data(T+iii,:) = forecast(T,:,iii);
     end;
-    
+
+    MAlags = [20, 50];
     MAs = movingAverages(data, T, MAlags);
         
     if portfolio(T,1) > portfolio(T,2), 
