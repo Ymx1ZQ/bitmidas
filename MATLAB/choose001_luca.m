@@ -24,17 +24,18 @@ function [choice, newLastAskPriceUsed] = choose001_luca(portfolio, data, fees, f
         %    times ago for today, by at least stdev/3
         % AND 
         % 2) price todayI don't lose money!
-                
+        
         if (data(T,2) > forecast(T-H,2,H) + stdev(T-H,2,H)/sensitiveness) && ((1-fees(2))*data(T,1)>lastAskPriceUsed),
             choice = -1;            
         end;
         
-        % stop loss rule
+        % stop loss rule... check volume w.r.t. average of last 12 periods
+        periods = 12;
         volumeIncr = (data(2:end,3)-data(1:end-1,3))./data(1:end-1,3);    
         processStDev = var(volumeIncr).^0.5;
-        sensibility = 4;
+        sensibility = 3;
 
-        if abs(volumeIncr(end-1)) > volumeIncr(end-2) + sensibility * processStDev;
+        if abs(volumeIncr(end)) > mean(volumeIncr(end-periods:end-1)) + sensibility * processStDev;
             choice = -2;
         end;
         

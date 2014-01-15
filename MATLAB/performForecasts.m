@@ -8,11 +8,11 @@ display('we''re forecasting for you...');
 data = (csvread('data.csv',1));
 %data = generateData(1000);
 
-frequency = 30; % in minutes... it's actually 1/frequency
-data = changeFrequency(data, frequency);
+frequency = 5; % in minutes... it's actually 1/frequency
+[data, withinVolatility] = changeFrequency(data, frequency);
 
 % settings
-H = 6; % estimated values taken into account
+H = 20; % estimated values taken into account
 sampleForEstimation = 320;
 sampleForBands = 180;
 L = 2;
