@@ -9,7 +9,7 @@ warning('off');
 load('computations.mat');
 
 % settings
-nStrategies = 5;
+nStrategies = 6;
 startPlaying = start2+H; % all strategies start from start2+1+H
 %startPlaying = 201;
 
@@ -25,49 +25,41 @@ end;
 
 % making choices and making actions
 for jjj = 1:nStrategies,
-    historicalAsk = data(start2+1, 2); 
-    if jjj == 1, % extra data needed for choice003_Luca
+    historicalAsk = data(start2+1, 2);
+    timeWait = 6*60/frequency; % after a stop_loss, wait for at least 6 hours before starting again
+    if jjj == 1, % extra settings for choice001_Luca
         lastAskPriceUsed = 0;
-        timeWait = 100; % wait time after the stoploss started
     end;
     for iii = startPlaying+1:T,
         % chose what to do in iii, given the information set at iii-1
         % -1: sell, 0: wait, 1 buy
-        switch jjj
-            case 1,
-                if choices(iii-1, jjj) ~= -2,
+        if choices(iii-1, jjj) == -2,
+            waitFor = waitFor -1;
+            if waitFor < 0,
+                choices(iii, jjj) = 0;
+            else
+                choices(iii, jjj) = -2;
+            end;
+        else
+            switch jjj
+                case 1,
                     [choices(iii, jjj), lastAskPriceUsed] = choose001_luca(portfolio(1:iii-1,:,jjj), data(1:iii-1,:,:), fees, forecast(1:iii-1,:,:), stdev(1:iii-1,:,:), withinVolatility(1:iii-1,:,:), frequency, lastAskPriceUsed);
-                else
-                    %{
-                    action = input('Do you want to start again? Y/N [N]', 's');
-                    if isempty(action), action = 'N'; end;
-                    if action == 'Y' || action == 'y', 
-                        choices(iii, jjj) = 0;
+                case 2,
+                    choices(iii, jjj) = choose002_maBase(portfolio(1:iii-1,:,jjj), data(1:iii-1,:,:), fees, forecast(1:iii-1,:,:), stdev(1:iii-1,:,:), withinVolatility(1:iii-1,:,:), frequency);
+                case 3,
+                    choices(iii, jjj) = choose003_maPaolo(portfolio(1:iii-1,:,jjj), data(1:iii-1,:,:), fees, forecast(1:iii-1,:,:), stdev(1:iii-1,:,:), withinVolatility(1:iii-1,:,:), frequency);
+                case 4,
+                    choices(iii, jjj) = choose004_basicRule(portfolio(1:iii-1,:,jjj), data(1:iii-1,:,:), fees, forecast(1:iii-1,:,:), stdev(1:iii-1,:,:), withinVolatility(1:iii-1,:,:), frequency);
+                case 5,
+                    choices(iii, jjj) = choose005_maWithStoploss(portfolio(1:iii-1,:,jjj), data(1:iii-1,:,:), fees, forecast(1:iii-1,:,:), stdev(1:iii-1,:,:), withinVolatility(1:iii-1,:,:), frequency);
+                otherwise % buy at time0 and then wait until the end
+                    if iii == startPlaying+1, 
+                        choices(iii, jjj) = 1;
                     else
-                        choices(iii, jjj) = -2;
-                    end;
-                    %}
-                    waitFor = waitFor -1;
-                    if waitFor < 0,
                         choices(iii, jjj) = 0;
-                    else
-                        choices(iii, jjj) = -2;
                     end;
-                end;
-            case 2,
-                choices(iii, jjj) = choose002_maBase(portfolio(1:iii-1,:,jjj), data(1:iii-1,:,:), fees, forecast(1:iii-1,:,:), stdev(1:iii-1,:,:), withinVolatility(1:iii-1,:,:), frequency);
-            case 3,
-                choices(iii, jjj) = choose003_maPaolo(portfolio(1:iii-1,:,jjj), data(1:iii-1,:,:), fees, forecast(1:iii-1,:,:), stdev(1:iii-1,:,:), withinVolatility(1:iii-1,:,:), frequency);
-            case 4,
-                choices(iii, jjj) = choose004_basicRule(portfolio(1:iii-1,:,jjj), data(1:iii-1,:,:), fees, forecast(1:iii-1,:,:), stdev(1:iii-1,:,:), withinVolatility(1:iii-1,:,:), frequency);
-            otherwise % buy at time0 and then wait until the end
-                if iii == startPlaying+1, 
-                    choices(iii, jjj) = 1;
-                else
-                    choices(iii, jjj) = 0;
-                end;
+            end;
         end;
-        
         
         % making actions
         switch choices(iii, jjj)

@@ -36,8 +36,8 @@ A_hat = NaN(const+L*K,K,T);
 for iii = start1+1:T,
     relevantData = data(iii-sampleForEstimation+1:iii,:);
     %[A_hat(:,:,iii)] = OLSestimation(relevantData, 0, L, const);    
-    %[A_hat(:,:,iii)] = arOLSestimation(relevantData, 0, L, const);
-    [A_hat(:,:,iii)] = arGARCHestimation(relevantData, 0, L, const);    
+    %[A_hat(:,:,iii)] = arGARCHestimation(relevantData, 0, L, const);    
+    [A_hat(:,:,iii)] = arOLSestimation(relevantData, 0, L, const);
     waitB=waitbar(iii/T/3);
 end;
 
