@@ -92,7 +92,8 @@ for jjj = 1:nStrategies,
 end;
 
 % compute sharpe ratios
-returnBinWeight = 60*24/frequency; % 60*24 minutes / oneDividedByFrequency ... returnBins of 1 day lenght
+sharpeBinWeight = 60*24;
+returnBinWeight = sharpeBinWeight/frequency; % sharpeBinWeight minutes / oneDividedByFrequency ... returnBins of 1 day lenght
 nReturnBins = fix((T-startPlaying)/returnBinWeight);
 returnBins = NaN(nReturnBins,nStrategies);
 for iii = 1:nReturnBins,    
@@ -107,9 +108,10 @@ sharpeRatios = (mean(returnBins)./(var(returnBins).^0.5))'; % in annualized term
 % annualize
 annualSharpeRatios = sqrt(returnBinWeight*frequency) * sharpeRatios;
 tradingTime = (T-startPlaying)*frequency;
-annualReturns = (returns).^(365/tradingTime)-1; % annualized
-annualHistoricalReturns = (historicalReturns).^(365/tradingTime)-1; % annualized
-
+minutesPerYear = 365*24*60;
+annualReturns = (returns).^(minutesPerYear/tradingTime)-1; % annualized
+annualHistoricalReturns = (historicalReturns).^(minutesPerYear/tradingTime)-1; % annualized
+annualSharpeReturns = ((1+mean(returnBins)).^(minutesPerYear/sharpeBinWeight)-1)'; % annualized
 
 % display results
 close(waitB);
@@ -117,8 +119,10 @@ display(' ');
 annualSharpeRatios
 annualReturns
 annualHistoricalReturns
+annualSharpeReturns 
+save('strategies.mat');
 display(' ');
-display('we evaluated for you');
+display('we evaluated for you, and saved the result in strategies.mat');
 display(' ');
 display('BYE BYE!!');
 
