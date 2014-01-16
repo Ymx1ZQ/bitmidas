@@ -29,14 +29,14 @@ function [choice, newLastAskPriceUsed] = choose001_luca(portfolio, data, fees, f
             choice = -1;            
         end;
         
-        % stop loss rule... check volume w.r.t. average of last 12 periods
-        periods = 12;
+        % stop loss rule... check volume w.r.t. average of last hour
+        periods = fix(60/frequency);
+        sensibility = 3; % how many stdev are we looking at?
         volumeIncr = (data(2:end,3)-data(1:end-1,3))./data(1:end-1,3);    
-        processStDev = var(volumeIncr).^0.5;
-        sensibility = 3;
-
+        processStDev = var(volumeIncr).^0.5;        
+        
         if abs(volumeIncr(end)) > mean(volumeIncr(end-periods:end-1)) + sensibility * processStDev;
             choice = -2;
-        end;
+        end;        
         
     end;
