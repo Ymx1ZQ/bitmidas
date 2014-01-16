@@ -5,7 +5,7 @@ function [choice] = choose003_maPaolo(portfolio, data, fees, forecast, stdev, wi
     %H = size(forecast,3);
     H = 2;
     T = size(data,1);
-    MAlags = [600/frequency, 1500/frequency]; % [20, 50] for data in 30mins
+    MAlags = [120, 300]; % [20, 50] for data in 30mins
     
     % put some future in the choices
     data = [data(:,:); NaN(H,3)];

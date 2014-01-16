@@ -1,4 +1,4 @@
-function [choice, newLastAskPriceUsed] = choose001_luca(portfolio, data, fees, forecast, stdev, lastAskPriceUsed)
+function [choice, newLastAskPriceUsed] = choose001_luca(portfolio, data, fees, forecast, stdev, withinVolatility, frequency, lastAskPriceUsed)
     % -1: sell; 0: wait; 1: buy; -2: stop loss
     choice = 0;
     newLastAskPriceUsed = lastAskPriceUsed;

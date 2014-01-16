@@ -35,7 +35,7 @@ for jjj = 1:nStrategies,
         switch jjj
             case 1,
                 if choices(iii-1, jjj) ~= -2,
-                    [choices(iii, jjj), lastAskPriceUsed] = choose001_luca(portfolio(1:iii-1,:,jjj), data(1:iii-1,:,:), fees, forecast(1:iii-1,:,:), stdev(1:iii-1,:,:), lastAskPriceUsed);
+                    [choices(iii, jjj), lastAskPriceUsed] = choose001_luca(portfolio(1:iii-1,:,jjj), data(1:iii-1,:,:), fees, forecast(1:iii-1,:,:), stdev(1:iii-1,:,:), withinVolatility, frequency, lastAskPriceUsed);
                 else
                     %{
                     action = input('Do you want to start again? Y/N [N]', 's');
@@ -109,18 +109,21 @@ for iii = 1:nReturnBins,
         returnBins(iii,jjj) = endValue/startValue - 1;
     end;
 end;
-sharpeRatios = sqrt(returnBinWeight*frequency) mean(returnBins)./(var(returnBins).^0.5)'; % in annualized terms!!
+sharpeRatios = (mean(returnBins)./(var(returnBins).^0.5))'; % in annualized terms!!
+
+% annualize
+annualSharpeRatios = sqrt(returnBinWeight*frequency) * sharpeRatios;
 tradingTime = (T-startPlaying)*frequency;
-returns = returns % annualized
-historicalReturns =  % annualized
+annualReturns = (returns).^(365/tradingTime)-1; % annualized
+annualHistoricalReturns = (historicalReturns).^(365/tradingTime)-1; % annualized
 
 
 % display results
 close(waitB);
 display(' ');
-sharpeRatios
-returns
-historicalReturns
+annualSharpeRatios
+annualReturns
+annualHistoricalReturns
 display(' ');
 display('we evaluated for you');
 display(' ');

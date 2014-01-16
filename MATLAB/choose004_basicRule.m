@@ -1,4 +1,4 @@
-function [choice] = choose004_basicRule(portfolio, data, fees, forecast, stdev)
+function [choice] = choose004_basicRule(portfolio, data, fees, forecast, stdev, withinVolatility, frequency)
     % -1: sell; 0: wait; 1: buy; -2: stop loss
     choice = 0;
     
