@@ -2,7 +2,7 @@ function [choice] = choose002_maBase(portfolio, data, fees, forecast, stdev, wit
     % -1: sell; 0: wait; 1: buy; -2: stop loss
     choice = 0;
     T = size(data,1);
-    MAlags = [20, 50];
+    MAlags = [600/frequency, 1500/frequency]; % [20, 50] for data in 30mins
     MAs = movingAverages(data, T, MAlags);
        
     if portfolio(T,1) > portfolio(T,2), 

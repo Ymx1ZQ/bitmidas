@@ -93,7 +93,7 @@ end;
 
 % compute sharpe ratios
 sharpeBinWeight = 60*24;
-returnBinWeight = sharpeBinWeight/frequency; % sharpeBinWeight minutes / oneDividedByFrequency ... returnBins of 1 day lenght
+returnBinWeight = fix(sharpeBinWeight/frequency); % sharpeBinWeight minutes / oneDividedByFrequency ... returnBins of 1 day lenght
 nReturnBins = fix((T-startPlaying)/returnBinWeight);
 returnBins = NaN(nReturnBins,nStrategies);
 for iii = 1:nReturnBins,    
