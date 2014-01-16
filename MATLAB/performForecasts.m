@@ -3,6 +3,7 @@ clc;
 clear;
 close all;
 display('we''re forecasting for you...');
+warning('off');
 
 % loading data
 data = (csvread('data.csv',1));
@@ -34,8 +35,9 @@ A_hat = NaN(const+L*K,K,T);
 % estimation
 for iii = start1+1:T,
     relevantData = data(iii-sampleForEstimation+1:iii,:);
-    %[A_hat(:,:,iii)] = arOLSestimation(relevantData, 0, L, const);    
-    [A_hat(:,:,iii)] = arOLSestimation(relevantData, 0, L, const);    
+    %[A_hat(:,:,iii)] = OLSestimation(relevantData, 0, L, const);    
+    %[A_hat(:,:,iii)] = arOLSestimation(relevantData, 0, L, const);
+    [A_hat(:,:,iii)] = arGARCHestimation(relevantData, 0, L, const);    
     waitB=waitbar(iii/T/3);
 end;
 

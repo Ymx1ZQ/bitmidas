@@ -1,8 +1,9 @@
-% evaluationg strategies
+% evaluating strategies
 clc;
 clear;
 close all;
 display('we''re evaluating for you...');
+warning('off');
 
 % loading data
 load('computations.mat');
