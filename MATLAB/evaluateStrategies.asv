@@ -109,21 +109,18 @@ for iii = 1:nReturnBins,
         returnBins(iii,jjj) = endValue/startValue - 1;
     end;
 end;
-sharpeRatios = (mean(returnBins)./(var(returnBins).^0.5))'; % in annualized terms!!
-
-% annualize
-annualSharpeRatios = sqrt(returnBinWeight*frequency) * sharpeRatios;
+sharpeRatios = sqrt(returnBinWeight*frequency) mean(returnBins)./(var(returnBins).^0.5)'; % in annualized terms!!
 tradingTime = (T-startPlaying)*frequency;
-annualReturns = (returns).^(365/tradingTime)-1; % annualized
-annualHistoricalReturns = (historicalReturns).^(365/tradingTime)-1; % annualized
+returns = returns % annualized
+historicalReturns =  % annualized
 
 
 % display results
 close(waitB);
 display(' ');
-annualSharpeRatios
-annualReturns
-annualHistoricalReturns
+sharpeRatios
+returns
+historicalReturns
 display(' ');
 display('we evaluated for you');
 display(' ');
