@@ -1,4 +1,4 @@
-% performin all forecasts!!
+% performing all forecasts!!
 clc;
 clear;
 close all;

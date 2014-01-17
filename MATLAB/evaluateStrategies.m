@@ -90,6 +90,7 @@ for jjj = 1:nStrategies,
     returns(jjj) = portfolio(iii, 1, jjj) + portfolio(iii, 2, jjj) * mean(data(iii, 1:2));
     historicalReturns(jjj) = portfolio(iii, 1, jjj) + portfolio(iii, 2, jjj) * historicalAsk;
 end;
+close(waitB);
 
 % compute sharpe ratios
 sharpeBinWeight = 60*24;
@@ -114,7 +115,6 @@ annualHistoricalReturns = (historicalReturns).^(minutesPerYear/tradingTime)-1; %
 annualSharpeReturns = ((1+mean(returnBins)).^(minutesPerYear/sharpeBinWeight)-1)'; % annualized
 
 % display results
-close(waitB);
 display(' ');
 annualSharpeRatios
 annualReturns

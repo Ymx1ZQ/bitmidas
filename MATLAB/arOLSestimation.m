@@ -22,7 +22,7 @@ for kkk = 1:K,
     end;
     arA_hat(:,:,kkk) = (X'*X)^-1*X'*Y;
     errors = Y - X*arA_hat(:,:,kkk);
-    COV_hat(kkk,kkk) = errors'*errors/(T-1-const);
+    COV_hat(kkk,kkk) = errors'*errors/(T-l-const);
     
     % re-order A_hat
     if const > 0, 

@@ -50,8 +50,9 @@ end;
 
 % filling missing data for all gaps
 for iii = 1:size(data,1),
-    if isnan(data(iii,1)),    
-        data(iii,:) = nanmean(data(max(1,iii-120):min(iii+120,end),:),1);    
+    if isnan(data(iii,1)),
+        fakeDev = var(data(max(1,iii-5):max(1,iii-1),:)).^0.5;
+        data(iii,:) = nanmean(data(max(1,iii-60):min(iii+60,end),:),1)+randn()*fakeDev;
     end;
 end;
 
