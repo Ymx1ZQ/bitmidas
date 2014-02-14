@@ -1,19 +1,35 @@
 % clean Data
 clc;
 clear;
+warning('off', 'all');
 display('We''re cleaning your data for you');
+
+s0=fileread('raw_data.csv');
+s1=strsplit(s0,'\n');
+s=strrep(s1,'"','');
+prova1 = strsplit(s{iii},',');
+rawData = NaN(size(s,2)-1,size(prova1,2));
+for iii=1:size(s,2)-1,
+    dataRaw = strsplit(s{iii},',');
+    for jjj=1:size(dataRaw,2)
+        rawData(iii,jjj) = str2num(dataRaw{jjj});        
+    end;
+    wait = waitbar(iii/size(s,2));
+end;
+
+csvwrite('data_fixed.csv', rawData);
 
 % settings
 binWidth = 60; % seconds
 
 % loading data
-rawData = csvread('raw_data.csv',1);
-rawData(:,3) = rawData(:,3)*10^-2; %BTC-USD *10^-2; LTC-EUR *2*10^-4;
+%rawData = csvread('raw_data_fixed.csv',1);
+%rawData(:,3) = rawData(:,3)*10^-2; %BTC-USD *10^-2; LTC-EUR *2*10^-4;
 
 % preparing bins
 T = size(rawData,1);
 length = fix((rawData(end,4)-rawData(1,4))/binWidth);
-data = NaN(length, 3);
+data = zeros(length, 3);
 
 % filling bins (from the most recent data)
 jjj = T;
@@ -62,4 +78,4 @@ end;
 
 % saving data
 plot(data);
-csvwrite('data.csv',data);
+csvwrite('data.csv',data(7500:end,:));

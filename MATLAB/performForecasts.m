@@ -9,7 +9,7 @@ warning('off');
 data = (csvread('data.csv',1));
 %data = generateData(1000);
 
-frequency = 60; % in minutes... it's actually 1/frequency
+frequency = 1; % in minutes... it's actually 1/frequency
 [data, withinVolatility] = changeFrequency(data, frequency);
 
 % settings
